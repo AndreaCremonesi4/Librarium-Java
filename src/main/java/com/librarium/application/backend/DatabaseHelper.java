@@ -38,7 +38,8 @@ public class DatabaseHelper {
 	
 	
 	private static Connection connect() {
-		String url = "jdbc:sqlite:C:/Users/Utente/Desktop/librarium/data/database.db";
+		System.out.println();
+		String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/data/database.db";
 		Connection conn = null;
 		
 		try{
