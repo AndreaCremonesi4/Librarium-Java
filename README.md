@@ -1,7 +1,8 @@
 # Librarium
 
-This project can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+## Aggiornare il modello del DB
+
+- **ECLIPSE**: Tasto destro sul progetto "librarium" &#8594; "Run As" &#8594; "Maven Build". Nel campo "goals" inserire `jooq-codegen:generate` poi premere "Run"
 
 ## Running the application
 
