@@ -17,6 +17,15 @@ import com.librarium.application.entity.Autore;
 
 public class DatabaseHelper {
 	
+	public static void updateAutore(Autore autore) {
+		try (Connection conn = connect()){
+			DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	public static ArrayList<Autore> leggiAutori() {		
 		try (Connection conn = connect()){
 			
