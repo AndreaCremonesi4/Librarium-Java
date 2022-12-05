@@ -8,10 +8,12 @@ import com.librarium.database.generated.org.jooq.tables.Autori;
 import com.librarium.database.generated.org.jooq.tables.Caseeditrici;
 import com.librarium.database.generated.org.jooq.tables.Categorie;
 import com.librarium.database.generated.org.jooq.tables.Libri;
+import com.librarium.database.generated.org.jooq.tables.Utenti;
 import com.librarium.database.generated.org.jooq.tables.records.AutoriRecord;
 import com.librarium.database.generated.org.jooq.tables.records.CaseeditriciRecord;
 import com.librarium.database.generated.org.jooq.tables.records.CategorieRecord;
 import com.librarium.database.generated.org.jooq.tables.records.LibriRecord;
+import com.librarium.database.generated.org.jooq.tables.records.UtentiRecord;
 
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
@@ -35,6 +37,8 @@ public class Keys {
     public static final UniqueKey<CaseeditriciRecord> PK_CASEEDITRICI = Internal.createUniqueKey(Caseeditrici.CASEEDITRICI, DSL.name("pk_CaseEditrici"), new TableField[] { Caseeditrici.CASEEDITRICI.ID }, true);
     public static final UniqueKey<CategorieRecord> PK_CATEGORIE = Internal.createUniqueKey(Categorie.CATEGORIE, DSL.name("pk_Categorie"), new TableField[] { Categorie.CATEGORIE.ID }, true);
     public static final UniqueKey<LibriRecord> PK_LIBRI = Internal.createUniqueKey(Libri.LIBRI, DSL.name("pk_Libri"), new TableField[] { Libri.LIBRI.ID }, true);
+    public static final UniqueKey<UtentiRecord> PK_UTENTI = Internal.createUniqueKey(Utenti.UTENTI, DSL.name("pk_Utenti"), new TableField[] { Utenti.UTENTI.ID }, true);
+    public static final UniqueKey<UtentiRecord> SQLITE_AUTOINDEX_UTENTI_1 = Internal.createUniqueKey(Utenti.UTENTI, DSL.name("sqlite_autoindex_Utenti_1"), new TableField[] { Utenti.UTENTI.EMAIL }, true);
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions

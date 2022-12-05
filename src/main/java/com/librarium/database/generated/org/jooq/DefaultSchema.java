@@ -8,6 +8,7 @@ import com.librarium.database.generated.org.jooq.tables.Autori;
 import com.librarium.database.generated.org.jooq.tables.Caseeditrici;
 import com.librarium.database.generated.org.jooq.tables.Categorie;
 import com.librarium.database.generated.org.jooq.tables.Libri;
+import com.librarium.database.generated.org.jooq.tables.Utenti;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +52,11 @@ public class DefaultSchema extends SchemaImpl {
     public final Libri LIBRI = Libri.LIBRI;
 
     /**
+     * The table <code>Utenti</code>.
+     */
+    public final Utenti UTENTI = Utenti.UTENTI;
+
+    /**
      * No further instances allowed
      */
     private DefaultSchema() {
@@ -69,6 +75,7 @@ public class DefaultSchema extends SchemaImpl {
             Autori.AUTORI,
             Caseeditrici.CASEEDITRICI,
             Categorie.CATEGORIE,
-            Libri.LIBRI);
+            Libri.LIBRI,
+            Utenti.UTENTI);
     }
 }
