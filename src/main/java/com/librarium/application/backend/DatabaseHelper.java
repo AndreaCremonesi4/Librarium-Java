@@ -14,6 +14,7 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import com.librarium.application.entity.Autore;
+import com.librarium.database.generated.org.jooq.tables.Autori;
 
 public class DatabaseHelper {
 	
@@ -30,11 +31,11 @@ public class DatabaseHelper {
 		try (Connection conn = connect()){
 			
 			DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
-			Result<Record> result = ctx.select().from("Autori").fetch();
+			Result<Record> result = ctx.select().from(Autori.AUTORI).fetch();
 			
 			ArrayList<Autore> autori = new ArrayList<Autore>();
 			for(Record r : result) {
-				autori.add(new Autore((int)r.get(0), (String)r.get(1)));
+				autori.add(new Autore((int)r.get("id"), (String)r.get("nome")));
 			}
 			
 			return autori;

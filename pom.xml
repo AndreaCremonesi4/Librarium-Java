@@ -126,13 +126,26 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-        	<groupId>org.xerial</groupId>
-        	<artifactId>sqlite-jdbc</artifactId>
-        </dependency>
-        <dependency>
-        	<groupId>org.jooq</groupId>
-        	<artifactId>jooq</artifactId>
-        </dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq-meta</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq-codegen</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq-meta-extensions</artifactId>
+			<version>3.17.5</version>
+		</dependency>
     </dependencies>
 
     <build>
@@ -167,6 +180,49 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<dependencies>
+					<dependency>
+						<groupId>org.xerial</groupId>
+						<artifactId>sqlite-jdbc</artifactId>
+						<version>LATEST</version>
+					</dependency>
+				</dependencies>
+
+				<configuration>
+					<jdbc>
+						<driver>org.sqlite.JDBC</driver>
+						<url>jdbc:sqlite:data/librarium.db</url>
+						<user></user>
+						<password></password>
+					</jdbc>
+
+					<generator>
+						<database>
+							<name>org.jooq.meta.sqlite.SQLiteDatabase</name>
+							<includes>.*</includes>
+							<excludes></excludes>
+						</database>
+						<generate />
+						<target>
+							<packageName>com.librarium.database.generated.org.jooq</packageName>
+							<directory>/src/main/java</directory>
+						</target>
+					</generator>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
