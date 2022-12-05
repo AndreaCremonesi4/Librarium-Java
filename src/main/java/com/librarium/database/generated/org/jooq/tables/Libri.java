@@ -70,7 +70,7 @@ public class Libri extends TableImpl<LibriRecord> {
     /**
      * The column <code>Libri.categoria</code>.
      */
-    public final TableField<LibriRecord, Integer> CATEGORIA = createField(DSL.name("categoria"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<LibriRecord, String> CATEGORIA = createField(DSL.name("categoria"), SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>Libri.autore</code>.
@@ -191,7 +191,7 @@ public class Libri extends TableImpl<LibriRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<Integer, String, String, String, Integer, Integer, Integer> fieldsRow() {
+    public Row7<Integer, String, String, String, String, Integer, Integer> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 }

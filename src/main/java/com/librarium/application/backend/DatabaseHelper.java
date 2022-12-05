@@ -18,6 +18,8 @@ import com.librarium.database.generated.org.jooq.tables.Autori;
 
 public class DatabaseHelper {
 	
+	private static final String DATABASE_PATH = "/data/librarium.db";
+	
 	public static void updateAutore(Autore autore) {
 		try (Connection conn = connect()){
 			DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
@@ -49,7 +51,7 @@ public class DatabaseHelper {
 	
 	private static Connection connect() {
 		System.out.println();
-		String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/data/database.db";
+		String url = "jdbc:sqlite:" + System.getProperty("user.dir") + DATABASE_PATH;
 		Connection conn = null;
 		
 		try{

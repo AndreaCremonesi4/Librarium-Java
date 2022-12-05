@@ -17,41 +17,57 @@ import com.vaadin.flow.router.Route;
 public class SignupPage extends VerticalLayout {
 
 	public SignupPage() {
-		H1 title = new H1("Signup");
-		TextField firstName = new TextField("First name");
-		TextField lastName = new TextField("Last name");
+		/* Pagina Registrazione */
+		
+		// Titolo
+		H1 titolo = new H1("Registrazione");
+		// Campo Nome
+		TextField nome = new TextField("Nome");
+		// Campo Cognome
+		TextField cognome = new TextField("Cognome");
+		// Campo Username
 		TextField username = new TextField("Username");
+		// Campo Password
 		PasswordField password = new PasswordField("Password");
-		PasswordField confirmPassword = new PasswordField("Confirm password");
-		Button loginButton = new Button("Signup");
+		// Campo Conferma Password
+		PasswordField confermaPassword = new PasswordField("Confirm password");
+		// Pulsante 
+		Button signupButton = new Button("Registrati");
+		signupButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY); // cambio lo stile del pulsante
+		signupButton.addClassName("submit-btt"); // aggiungo la classe CSS
 
-		loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		loginButton.addClassName("submit-btt");
+		// Creo il contenitore per il testo sottostante al form
+		HorizontalLayout hintContainer = new HorizontalLayout();
 
-		HorizontalLayout hint = new HorizontalLayout();
+		Span testo = new Span("Hai già un account?");
+		Anchor linkLogin = new Anchor("/login", "Accedi");// link che riporta alla pagina di login
 
-		Span span = new Span("Hai già un account?");
-		Anchor linkRegistration = new Anchor("/login", "Accedi");
+		hintContainer.addClassName("hint");
+		hintContainer.add(testo, linkLogin); 
 
-		hint.addClassName("hint");
-		hint.add(span, linkRegistration);
-
+		// Creo il form
 		FormLayout formLayout = new FormLayout();
-		formLayout.add(title, firstName, lastName, username, password, confirmPassword, loginButton, hint);
+		formLayout.add(titolo, nome, cognome, username, password, confermaPassword, signupButton, hintContainer);
 
+		// Setto gli step responsivi del form
 		formLayout.setResponsiveSteps(new ResponsiveStep("0", 1), new ResponsiveStep("500px", 2));
+		
+		formLayout.setColspan(titolo, 2);
+		formLayout.setColspan(username, 2);
+		formLayout.setColspan(signupButton, 2);
+		formLayout.setWidth("600px");
+		
+		// Creo il contenitore del form
+		HorizontalLayout formContainer = new HorizontalLayout();
+		formContainer.setJustifyContentMode(JustifyContentMode.CENTER);
+		formContainer.add(formLayout);
+		formContainer.setSizeFull();
 
-		formLayout.setColspan(title, 2);
-		formLayout.setWidth("400px");
-
-		HorizontalLayout hLayout = new HorizontalLayout();
-		hLayout.setJustifyContentMode(JustifyContentMode.CENTER);
-		hLayout.add(formLayout);
-		hLayout.setSizeFull();
-
+		// Layout della pagina a grandezza massima
 		setSizeFull();
-
-		add(hLayout);
+		
+		// aggiungo il container del form alla pagina
+		add(formContainer);
 	}
 
 }

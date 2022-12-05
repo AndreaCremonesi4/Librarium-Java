@@ -8,6 +8,7 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -16,44 +17,44 @@ import com.vaadin.flow.router.Route;
 public class LoginPage extends VerticalLayout{
 	
 	public LoginPage() {
-		H1 title = new H1("Login");
-		/*TextField firstName = new TextField("First name");
-		TextField lastName = new TextField("Last name");*/
-		TextField username = new TextField("Username");
+		/* Creazione Form */
+		
+		// Titolo
+		H1 titolo = new H1("Accesso");
+		// Campo Email
+		EmailField email = new EmailField("Email");
+		// Campo Password
 		PasswordField password = new PasswordField("Password");
-		//PasswordField confirmPassword = new PasswordField("Confirm password");
-		Button loginButton = new Button("Login");
+		// Pulsante Login
+		Button loginButton = new Button("Accedi");
+		loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY); // cambio lo stile del pulsante
+		loginButton.addClassName("submit-btt"); // aggiungo la classe CSS
 		
-		loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		loginButton.addClassName("submit-btt");
+		// Creo il contenitore per il testo sottostante al form
+		HorizontalLayout hintContainer = new HorizontalLayout();
 		
-		HorizontalLayout hint = new HorizontalLayout();
+		Span text = new Span("Non hai un account?");
+		Anchor linkRegistration = new Anchor("/signup", "Registrati"); // link che riporta alla pagina di registrazione
 		
-		Span span = new Span("Non hai un account?");
-		Anchor linkRegistration = new Anchor("/signup", "Registrati");
+		hintContainer.addClassName("hint"); // aggiungo la classe CSS
+		hintContainer.add(text, linkRegistration); // aggiungo i componenti al contenitore
 		
-		hint.addClassName("hint");
-		hint.add(span, linkRegistration);
-		
+		// Creo il form
 		FormLayout formLayout = new FormLayout();
-		formLayout.add(title, username, password, loginButton, hint);
-		
-		/*formLayout.setResponsiveSteps(
-		        // Use one column by default
-		        new ResponsiveStep("0", 1),
-		        // Use two columns, if layout's width exceeds 500px
-		        new ResponsiveStep("300px", 2));*/
-		
+		formLayout.add(titolo, email, password, loginButton, hintContainer); // aggiungo al form i componenti
 		formLayout.setWidth("400px");
 		
-		HorizontalLayout hLayout = new HorizontalLayout();
-		hLayout.setJustifyContentMode(JustifyContentMode.CENTER);
-		hLayout.add(formLayout);
-		hLayout.setSizeFull();
+		// Creo il contentiore del form
+		HorizontalLayout formContainer = new HorizontalLayout();
+		formContainer.setJustifyContentMode(JustifyContentMode.CENTER);
+		formContainer.add(formLayout);
+		formContainer.setSizeFull();
 		
+		// Layout della pagina a grandezza massima
 		setSizeFull();
 		
-		add(hLayout);
+		// aggiungo il container del form alla pagina
+		add(formContainer);
 	}
 	
 }
