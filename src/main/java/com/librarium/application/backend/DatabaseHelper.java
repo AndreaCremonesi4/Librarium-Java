@@ -13,14 +13,14 @@ import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
-import com.librarium.application.entity.Autore;
 import com.librarium.database.generated.org.jooq.tables.Autori;
+import com.librarium.database.generated.org.jooq.tables.records.AutoriRecord;
 
 public class DatabaseHelper {
 	
 	private static final String DATABASE_PATH = "/data/librarium.db";
 	
-	public static void updateAutore(Autore autore) {
+	public static void updateAutore(AutoriRecord autore) {
 		try (Connection conn = connect()){
 			DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
 			
@@ -29,15 +29,15 @@ public class DatabaseHelper {
 		}
 	}
 	
-	public static ArrayList<Autore> leggiAutori() {		
+	public static ArrayList<AutoriRecord> leggiAutori() {		
 		try (Connection conn = connect()){
 			
 			DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
 			Result<Record> result = ctx.select().from(Autori.AUTORI).fetch();
 			
-			ArrayList<Autore> autori = new ArrayList<Autore>();
+			ArrayList<AutoriRecord> autori = new ArrayList<AutoriRecord>();
 			for(Record r : result) {
-				autori.add(new Autore((int)r.get("id"), (String)r.get("nome")));
+				autori.add(new AutoriRecord((int)r.get("id"), (String)r.get("nome")));
 			}
 			
 			return autori;

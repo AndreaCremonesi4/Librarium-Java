@@ -1,12 +1,10 @@
 package com.librarium.application.views;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.librarium.application.backend.DatabaseHelper;
 import com.librarium.application.components.LinkButton;
-import com.librarium.application.entity.Autore;
-import com.librarium.application.navigate.Navigation;
+import com.librarium.database.generated.org.jooq.tables.records.AutoriRecord;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
@@ -14,25 +12,24 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLink;
 
 @Route("/")
 public class HomePage extends VerticalLayout {
 
-	Autore a;
-	List<Autore> autori;
-	Grid<Autore> grid;
+	AutoriRecord a;
+	List<AutoriRecord> autori;
+	Grid<AutoriRecord> grid;
 
-	Autore selectedAuthor = null;
+	AutoriRecord selectedAuthor = null;
 	TextField author;
 
 	public HomePage() {
 		LinkButton button = new LinkButton("Login", "login");
 		button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		grid = new Grid<>(Autore.class, false);
-		grid.addColumn(Autore::getId).setHeader("ID");
-		grid.addColumn(Autore::getNome).setHeader("Nome");
+		grid = new Grid<>(AutoriRecord.class, false);
+		grid.addColumn(AutoriRecord::getId).setHeader("ID");
+		grid.addColumn(AutoriRecord::getNome).setHeader("Nome");
 		grid.addCellFocusListener(e -> {
 			try {
 				a = e.getItem().get();
