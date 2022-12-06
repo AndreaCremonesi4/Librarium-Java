@@ -1,16 +1,16 @@
 package com.librarium.application.views;
 
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 @Route("/login")
@@ -30,18 +30,13 @@ public class LoginPage extends VerticalLayout{
 		loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY); // cambio lo stile del pulsante
 		loginButton.addClassName("submit-btt"); // aggiungo la classe CSS
 		
-		// Creo il contenitore per il testo sottostante al form
-		HorizontalLayout hintContainer = new HorizontalLayout();
-		
-		Span text = new Span("Non hai un account?");
-		Anchor linkRegistration = new Anchor("/signup", "Registrati"); // link che riporta alla pagina di registrazione
-		
-		hintContainer.addClassName("hint"); // aggiungo la classe CSS
-		hintContainer.add(text, linkRegistration); // aggiungo i componenti al contenitore
+		// Link che riporta alla pagina di registrazione
+		Anchor linkRegistration = new Anchor("/signup", "Registrati");
+		Paragraph hint = new Paragraph(new Text("Non hai un account? "), linkRegistration);
 		
 		// Creo il form
 		FormLayout formLayout = new FormLayout();
-		formLayout.add(titolo, email, password, loginButton, hintContainer); // aggiungo al form i componenti
+		formLayout.add(titolo, email, password, loginButton, hint); // aggiungo al form i componenti
 		formLayout.setWidth("400px");
 		
 		// Creo il contentiore del form

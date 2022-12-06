@@ -1,11 +1,13 @@
 package com.librarium.application.views;
 
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.formlayout.FormLayout.ResponsiveStep;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -36,18 +38,13 @@ public class SignupPage extends VerticalLayout {
 		signupButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY); // cambio lo stile del pulsante
 		signupButton.addClassName("submit-btt"); // aggiungo la classe CSS
 
-		// Creo il contenitore per il testo sottostante al form
-		HorizontalLayout hintContainer = new HorizontalLayout();
-
-		Span testo = new Span("Hai già un account?");
-		Anchor linkLogin = new Anchor("/login", "Accedi");// link che riporta alla pagina di login
-
-		hintContainer.addClassName("hint");
-		hintContainer.add(testo, linkLogin); 
+		// link che riporta alla pagina di login
+		Anchor linkLogin = new Anchor("/login", "Accedi");
+		Paragraph hint = new Paragraph(new Text("Hai già un account? "), linkLogin);
 
 		// Creo il form
 		FormLayout formLayout = new FormLayout();
-		formLayout.add(titolo, nome, cognome, username, password, confermaPassword, signupButton, hintContainer);
+		formLayout.add(titolo, nome, cognome, username, password, confermaPassword, signupButton, hint);
 
 		// Setto gli step responsivi del form
 		formLayout.setResponsiveSteps(new ResponsiveStep("0", 1), new ResponsiveStep("500px", 2));
