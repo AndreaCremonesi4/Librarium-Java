@@ -1,0 +1,29 @@
+.lista-libri{
+	overflow: auto;
+	max-width:100%;
+}
+
+.lista-libri img{
+	aspect-ratio: 3 / 4;
+}
+
+/* width */
+.lista-libri::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+}
+
+/* Track */
+.lista-libri::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.lista-libri::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.lista-libri::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

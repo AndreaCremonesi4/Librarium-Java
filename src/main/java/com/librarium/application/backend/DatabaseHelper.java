@@ -2,10 +2,9 @@ package com.librarium.application.backend;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -14,52 +13,75 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import com.librarium.database.generated.org.jooq.tables.Autori;
+import com.librarium.database.generated.org.jooq.tables.Libri;
 import com.librarium.database.generated.org.jooq.tables.records.AutoriRecord;
+import com.librarium.database.generated.org.jooq.tables.records.LibriRecord;
 
 public class DatabaseHelper {
-	
+
 	private static final String DATABASE_PATH = "/data/librarium.db";
-	
+
+	private static Connection connect() {
+		String url = "jdbc:sqlite:" + System.getProperty("user.dir") + DATABASE_PATH;
+		Connection conn = null;
+
+		try {
+			conn = DriverManager.getConnection(url);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return conn;
+	}
+
 	public static void updateAutore(AutoriRecord autore) {
-		try (Connection conn = connect()){
-			DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
-			
+		try (Connection conn = connect()) {
+			DSLContext ctx = DSL.using(conn, SQLDialect.SQLITE);
+			ctx.update(Autori.AUTORI)
+				.set(Autori.AUTORI.NOME, autore.getNome())
+				.where(Autori.AUTORI.ID.eq(autore.getId()))
+				.execute();
+			conn.commit();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	public static ArrayList<AutoriRecord> leggiAutori() {		
-		try (Connection conn = connect()){
-			
-			DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
+
+	public static ArrayList<AutoriRecord> leggiAutori() {
+		try (Connection conn = connect()) {
+
+			DSLContext ctx = DSL.using(conn, SQLDialect.SQLITE);
 			Result<Record> result = ctx.select().from(Autori.AUTORI).fetch();
-			
+
 			ArrayList<AutoriRecord> autori = new ArrayList<AutoriRecord>();
-			for(Record r : result) {
-				autori.add(new AutoriRecord((int)r.get("id"), (String)r.get("nome")));
+			for (Record r : result) {
+				autori.add(new AutoriRecord((int) r.get("id"), (String) r.get("nome")));
 			}
 			
 			return autori;
-			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return null;
 		}
 	}
-	
-	
-	private static Connection connect() {
-		System.out.println();
-		String url = "jdbc:sqlite:" + System.getProperty("user.dir") + DATABASE_PATH;
-		Connection conn = null;
+
+	public static List<LibriRecord> leggiLibri() {
 		
-		try{
-			conn = DriverManager.getConnection(url);
-		}catch (SQLException e) {
-			System.out.println(e.getMessage());
+		try(Connection conn = connect()){
+			DSLContext ctx = DSL.using(conn, SQLDialect.SQLITE);
+			Result<Record> result = 
+				ctx.select()
+					.from(Libri.LIBRI)
+					.fetch();
+			
+			ArrayList<LibriRecord> libri = new ArrayList<LibriRecord>();
+			
+			result.forEach(libro -> libri.add((LibriRecord) libro));
+			
+			return libri;
+		} catch(SQLException ex){
+			System.out.println(ex.getMessage());
+			return null;
 		}
-		
-		return conn;
 	}
 }
