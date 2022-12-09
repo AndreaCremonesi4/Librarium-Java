@@ -5,6 +5,7 @@
 
 .lista-libri img{
 	aspect-ratio: 3 / 4;
+	cursor:pointer;
 }
 
 /* width */
@@ -27,3 +28,16 @@
 .lista-libri::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+/*========== INFO LIBRI ===========*/
+.info-libro{
+	max-width:500px;
+}
+
+.info-libro img{
+	aspect-ratio: 3/4;
+	width:min(90vw, 150px);
+}
+
+

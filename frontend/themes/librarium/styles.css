@@ -2,3 +2,7 @@
 @import url('./form.css');
 @import url('./libri.css');
 @import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
+
+vaadin-button{
+	cursor:pointer;
+}

@@ -13,8 +13,10 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import com.librarium.database.generated.org.jooq.tables.Autori;
+import com.librarium.database.generated.org.jooq.tables.Categorie;
 import com.librarium.database.generated.org.jooq.tables.Libri;
 import com.librarium.database.generated.org.jooq.tables.records.AutoriRecord;
+import com.librarium.database.generated.org.jooq.tables.records.CategorieRecord;
 import com.librarium.database.generated.org.jooq.tables.records.LibriRecord;
 
 public class DatabaseHelper {
@@ -72,6 +74,69 @@ public class DatabaseHelper {
 			Result<Record> result = 
 				ctx.select()
 					.from(Libri.LIBRI)
+					.fetch();
+			
+			ArrayList<LibriRecord> libri = new ArrayList<LibriRecord>();
+			
+			result.forEach(libro -> libri.add((LibriRecord) libro));
+			
+			return libri;
+		} catch(SQLException ex){
+			System.out.println(ex.getMessage());
+			return null;
+		}
+	}
+	
+	public static List<Record> leggiLibriAutore() {
+		
+		try(Connection conn = connect()){
+			DSLContext ctx = DSL.using(conn, SQLDialect.SQLITE);
+			
+			return ctx.select()
+					.from(Libri.LIBRI)
+					.join(Autori.AUTORI).on(Libri.LIBRI.AUTORE.eq(Autori.AUTORI.ID))
+					.fetch();
+		} catch(SQLException ex){
+			System.out.println(ex.getMessage());
+			return null;
+		}
+	}
+	
+	public static List<CategorieRecord> leggiCategorie() {
+		
+		try(Connection conn = connect()){
+			DSLContext ctx = DSL.using(conn, SQLDialect.SQLITE);
+			Result<Record> result = 
+				ctx.select()
+					.from(Categorie.CATEGORIE)
+					.fetch();
+			
+			ArrayList<CategorieRecord> categorie = new ArrayList<CategorieRecord>();
+			
+			result.forEach(libro -> categorie.add((CategorieRecord) libro));
+			
+			return categorie;
+		} catch(SQLException ex){
+			System.out.println(ex.getMessage());
+			return null;
+		}
+	}
+	
+	public static List<LibriRecord> leggiLibriCategoria(CategorieRecord categoria) {
+		
+		if(categoria == null)
+			return null;
+	
+		return leggiLibriCategoria(categoria.getId().toString());
+	}
+	
+	public static List<LibriRecord> leggiLibriCategoria(String id){
+		try(Connection conn = connect()){
+			DSLContext ctx = DSL.using(conn, SQLDialect.SQLITE);
+			Result<Record> result = 
+				ctx.select()
+					.from(Libri.LIBRI)
+					.where(Libri.LIBRI.CATEGORIA.contains(id))
 					.fetch();
 			
 			ArrayList<LibriRecord> libri = new ArrayList<LibriRecord>();

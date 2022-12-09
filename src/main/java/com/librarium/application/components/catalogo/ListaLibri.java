@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.librarium.database.generated.org.jooq.tables.records.LibriRecord;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
@@ -32,10 +33,12 @@ public class ListaLibri extends HorizontalLayout{
 		removeAll();
 		
 		for(LibriRecord libro : listaLibri) {
-			System.out.println(libro.toString());
 			Image icona = new Image();
+			BookDialog dialog = new BookDialog(libro);
 			icona.setSrc(libro.getCopertina());
-			add(icona);
+			icona.addClickListener(click -> dialog.open());
+			
+			add(dialog, icona);
 		}
 	}
 	
